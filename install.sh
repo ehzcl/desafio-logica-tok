@@ -3,7 +3,7 @@
 set -e
 
 sudo yum install -y nginx 1>/dev/null
-[ -e /usr/sbin/nginx ] && sudo service start nginx
+[ -e /usr/sbin/nginx ] && sudo service nginx start
 
 echo "PS1='Ewerton@server$ '" >> $HOME/.bashrc
 
