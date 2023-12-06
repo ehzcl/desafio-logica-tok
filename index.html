@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Desafio DevOps Tok&Stok</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>Desafio de Ewerton</h1>
+    <p>Para a realizacao desse desafio primeiro temos que saber qual servidor web seria usado e qual maneira usaria ele.<br>
+      As opcoes eram docker ou a instalacao do webserver, escolhi o nginx, os arquivos html ficam localizados em <b>/usr/share/nginx/html</b><br>
+      em seguida decidi criar um script para automatizar a instalacao e o download da pagina.<br>
+      entao usei o instance settings > edit user data para baixar e executar o script na instancia, o script pode ser encontrado neste link
+      <a href="https://raw.githubusercontent.com/ehzcl/desafio-logica-tok/devops/install.sh">script</a>
+    </p>
+    <h2> VPC</h2>
+    <p>os passos que realizei foram a criacao da VPC com auto generate inserindo o prefixo no nome da VPC deixei o IPv4 CIDR block em 10.0.0.0/28 <br>
+      pois nao era necessario ter muitos IPs ja que so iremos utilizar uma maquina entoa 16 foi mais do que suficiente<br>
+      1 AZ, 1 Public Subnet e 0 private subnet sem NAT gateways</p>
+
+    <h2>Subnet</h2>
+    <p>AZ us-east-1a</p>
+
+    <h2>Internet Gateway</h2>
+    <p>ja havia sido criado, mas so pra nao arriscar abri para ver se havia sido criado mesmo</p>
+
+    <h2>Security Group</h2>
+    <p>Rule 1: inbound  {type : SSH, source : anywhere-IPv4}<br>
+      Rule 2: inbound {type : HTTP, source : anywhere-IPv4}
+    </p>
+
+    <h2>Route Table</h2>
+    <p>edit routes<br>
+      destination : 0.0.0.0/0 <br>
+      target : nosso internet gateway
+    </p>
+
+    <h2>EC2</h2>
+    <p>editar as configuracoes de VPC para escolher nossa VPC e security group<br>
+       lembrar de criar um key pair se nao houver criado ainda e lembrar de usar o chmod 400 nele<br>
+       escolhi nao usar auto-assign public IP e usar o elastic IP (nao pode esquecer de libera-lo ao finalizar a instancia)
+       em advanced networking configuration habilitar o delete on termination da interface
+      </p>
+
+
+  </body>
+</html>
